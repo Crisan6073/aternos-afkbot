@@ -16,12 +16,12 @@ app.listen(port, () => {
 // Función para iniciar el bot
 function startBot() {
   const bot = mineflayer.createBot({
-    host: "MineHaven.aternos.me",
+    host: "MineHaven.aternos.me", // IP o dominio de tu servidor
     port: 25565,
     username: "BotIdle"
   });
 
-  bot.on("login", () => {
+  bot.once("login", () => {
     console.log("Bot conectado al servidor MineHaven!");
   });
 
@@ -32,7 +32,12 @@ function startBot() {
 
   bot.on("error", (err) => {
     console.log("AFKBot got an error:", err.message);
-    // No reintentar aquí, dejamos que el setTimeout de "end" haga la reconexión
+    // Ignorar ETIMEDOUT u otros errores temporales
+  });
+
+  bot.on("kicked", (reason) => {
+    console.log("Bot fue expulsado:", reason);
+    setTimeout(startBot, 2 * 60 * 1000);
   });
 }
 
