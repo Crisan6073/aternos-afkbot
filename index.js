@@ -17,7 +17,7 @@ app.listen(port, () => {
 function startBot() {
   const bot = mineflayer.createBot({
     host: "MineHaven.aternos.me", // IP o dominio de tu servidor
-    port: 25565,
+    port: 61127,
     username: "BotIdle"
   });
 
